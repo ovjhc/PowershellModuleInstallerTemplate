@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <!-- from https://github.com/CayasSoftware/ReallyEmptyMVC-Project-Template-Installer/blob/master/ReallyEmptyMVC%20Template%20Installer/Product.wxs -->
+  <Product Id="*" Name="Powershell Module Installer Template" Language="1033" Version="1.0.0.0" Manufacturer="Wix" UpgradeCode="6763F196-1832-4816-BE11-B690352AB877">
+    <Package InstallerVersion="400" Compressed="yes" />
+
+    <PropertyRef Id="VS2015_ROOT_FOLDER"/>
+    <PropertyRef Id="VS2015_PROJECTTEMPLATES_DIR"/>
+    <PropertyRef Id="VS2015_IDE_VCSHARP_PROJECTSYSTEM_INSTALLED"/>
+    <PropertyRef Id="VS2015DEVENV"/>
+
+    <CustomActionRef Id="VS2015InstallVSTemplates"/>
+
+    <util:CloseApplication Id="CloseVS" CloseMessage="yes" Target="devenv.exe" RebootPrompt="no" Description="Visual Studio needs to be closed"/>
+    <InstallExecuteSequence>
+      <Custom Action='WixCloseApplications' Before='InstallValidate' />
+    </InstallExecuteSequence>
+
+
+    <CustomAction Id="CheckIfVSIsNotInstalled" Error="Could not found Visual Studio" />
+
+    <InstallExecuteSequence>
+      <LaunchConditions After="AppSearch"/>
+      <Custom Action="CheckIfVSIsNotInstalled" Before="CostInitialize">(NOT VS2015_ROOT_FOLDER OR NOT VS2015DEVENV) AND NOT VS2015_IDE_VCSHARP_PROJECTSYSTEM_INSTALLED AND NOT Installed</Custom>
+      <Custom Action="VS2015InstallVSTemplates" Before="InstallFinalize"></Custom>
+    </InstallExecuteSequence>
+
+    <InstallUISequence>
+      <Custom Action="CheckIfVSIsNotInstalled" Before="CostInitialize">(NOT VS2015_ROOT_FOLDER OR NOT VS2015DEVENV) AND NOT VS2015_IDE_VCSHARP_PROJECTSYSTEM_INSTALLED AND NOT Installed</Custom>
+    </InstallUISequence>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="VS2015_PROJECTTEMPLATES_DIR" Name="ProjectTemplates">
+
+        <!--Directory Id="CSharp" Name="CSharp">
+          <Directory Id="Web" Name="Web">
+            <Directory Id="Code" Name="1033"-->
+
+              <Component Id="PowerShellModuleInstallerTemplateFiles" Guid="A9725658-404D-48E1-83CE-F081E244A0C2">
+                <File Id="PowerShellModuleInstaller" Name="PowerShellModuleInstaller.zip" Source="PowerShellModuleInstaller.zip" Vital="yes" KeyPath="yes" DiskId="1" />
+              </Component>
+        <!--/Directory>
+          </Directory>
+        </Directory-->
+
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="PowerShell Module Installer Template" Level="1">
+      <ComponentRef Id="PowerShellModuleInstallerTemplateFiles"/>
+    </Feature>
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+  </Product>
+</Wix>

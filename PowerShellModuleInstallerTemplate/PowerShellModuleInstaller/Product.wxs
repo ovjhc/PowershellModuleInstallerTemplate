@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="$(var.TargetName)" Language="1033" Version="1.0.0.0" Manufacturer="Wix" UpgradeCode="$guid1$">
+		<Package InstallerVersion="400" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowSameVersionUpgrades="yes" />
+    <Media Id="1" Cabinet="Cab1.cab" EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="$(var.TargetName)" Level="1">
+			<ComponentGroupRef Id="ModuleComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+	<Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="WindowsPowerShell" Name="WindowsPowerShell">
+          <Directory Id="Modules" Name="Modules">
+            <Directory Id="INSTALLDIR" Name="$(var.TargetName)" />
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+</Wix>

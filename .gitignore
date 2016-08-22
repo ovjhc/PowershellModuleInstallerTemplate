@@ -1,0 +1,3 @@
+*.wixpdb
+/*/obj/*
+*.vs
