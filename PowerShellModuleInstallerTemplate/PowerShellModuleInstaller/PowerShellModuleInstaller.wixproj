@@ -12,6 +12,13 @@
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <Name>ModuleInstaller</Name>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>ModuleDir=C:\Program Files\WindowsPowerShell\Modules\$projectname$</DefineConstants>
+    <WixVariables>TargetName=$projectname$</WixVariables>
+    <Cultures />
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
@@ -28,7 +35,7 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>cmd /c if not exist "$(ProjectDir)ModuleHeat.wxs" ( "%25PROGRAMFILES(x86)%25\WiX Toolset v3.10\bin\heat.exe" dir "%25ProgramW6432%25\WindowsPowerShell\Modules\$(TargetName)" -dr INSTALLDIR -cg ModuleComponents -gg -g1 -sf -srd -sreg -var "var.ModuleDir" -out "$(ProjectDir)ModuleHeat.wxs" -t "$(ProjectDir)excludegit.xsl")</PreBuildEvent>
+    <PreBuildEvent>"%25PROGRAMFILES(x86)%25\WiX Toolset v3.10\bin\heat.exe" dir "%25ProgramW6432%25\WindowsPowerShell\Modules\$(TargetName)" -dr INSTALLDIR -cg ModuleComponents -gg -g1 -sf -srd -sreg -var "var.ModuleDir" -out "$(ProjectDir)ModuleHeat.wxs" -t "$(ProjectDir)excludegit.xsl"</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
