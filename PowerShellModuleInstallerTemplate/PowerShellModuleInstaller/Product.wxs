@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product Id="*" Name="$(var.TargetName)" Language="1033" Version="1.0.0.0" Manufacturer="Wix" UpgradeCode="$guid1$">
-		<Package InstallerVersion="400" Compressed="yes" InstallScope="perMachine" />
+		<Package InstallerVersion="400" Compressed="yes" InstallScope="perMachine" 
+		Comments="This installer database contains the logic and data required to install $(var.TargetName) 1.0.0.0."/>
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowSameVersionUpgrades="yes" />
     <Media Id="1" Cabinet="Cab1.cab" EmbedCab="yes" />

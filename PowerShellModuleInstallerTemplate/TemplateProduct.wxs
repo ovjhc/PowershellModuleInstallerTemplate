@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
   <!-- from https://github.com/CayasSoftware/ReallyEmptyMVC-Project-Template-Installer/blob/master/ReallyEmptyMVC%20Template%20Installer/Product.wxs -->
-  <Product Id="*" Name="Powershell Module Installer Template" Language="1033" Version="1.0.0.0" Manufacturer="Wix" UpgradeCode="6763F196-1832-4816-BE11-B690352AB877">
+  <Product Id="*" Name="Powershell Module Installer Template" Language="1033" Version="1.0.1.0" Manufacturer="Wix" UpgradeCode="6763F196-1832-4816-BE11-B690352AB877">
     <Package InstallerVersion="400" Compressed="yes" />
 
     <PropertyRef Id="VS2015_ROOT_FOLDER"/>
